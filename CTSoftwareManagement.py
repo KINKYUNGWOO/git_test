@@ -8,8 +8,8 @@ from requests_ntlm import HttpNtlmAuth
 
 eqverinfo_url = ['http://tekis1244/TEKCTSVM/Board/list.aspx?gn=S&ccd=All&lcd=All&t=&s=','&ty=All&send=&work=&ncdr=&sv=&con=']
 
-username ="172762"
-password = "2wsx1qaz"
+username ="administrator"
+password = "123qwe!@#"
 
 def SplitEqVersion(eqVer):
     eqVerSplit = eqVer.split('+')[0].split('.')
