@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <title>My Chart.js Chart</title>
+</head>
+
+<body>
+
+
+  <!-- <div style="float:left;width:950px; height:300px;background-Color:#D4F0F0"> -->
+  <div style="height:300px;background-Color:">
+  <h1>
+    <p>
+     <div style = "text-align : right">
+      <button onclick="window.location.href='http://127.0.0.1:8000/login'" style="text-align: center" class="btn btn-default">
+        로그인
+        <span class="glyphicon glyphicon-share-alt"></span></button>
+    </div>
+    </p>
+
+    <div style = "text-align: center">
+    <a href= "http://127.0.0.1:8000/">
+      {% load static %}
+      <img src = "{%  static '2.png'%}">
+    </a>
+    </div>
+
+    <p>
+    <div style="text-align: center">
+      <form action="{% url 'Search_EQ_HTML' %}">
+        <input type="text" width="50%" height="50%" name="fulltext" value="{{fulltext}}"/>
+        <input type="submit" value="찾기" class="btn btn-info btn-lg">
+      </form>
+    </p>
+   </div>
+    <div style="text-align: center">
+      <form action="{% url 'Search_GL_BTN' %}">
+       <select name = "EQ_Version" id = "EQ_Version">
+        {% for c in combo %}
+        <option value="{{c}}">{{c}}</option>
+        {% endfor %}
+        </select>
+        <input type="hidden" name="fulltext" value="{{fulltext}}" />
+        <input type="submit" value="Result" style="text-align: center" class="btn btn-info btn-lg"></input>
+      </form>
+    </div>
+  </h1>
+  </div>
+
+
+<!-- 버전결과  -->
+<div style="height:100px;background-Color:#">
+    <hl>
+      <div>
+      <p style ="font-size:20px; color : "> </p>
+      <div style = "text-align: center">
+
+
+        <div style="text-align: center">
+          <span style = " font-size:1.5em;  color: red;">
+          대응GL버전: {{GLfulltext}}
+          </span>
+        </div>
+      </div>
+      </div>
+    </<h1>
+  <border="1" width="200%" height="100%" alt="검색부분">
+  </div>
+
+
+
+  <div class="container"><iframe class="chartjs-hidden-iframe" tabindex="-1" style="display: block; overflow: hidden; border: 0px; margin: 0px; inset: 0px; height: 100%; width: 100%; position: absolute; pointer-events: none; z-index: -1;"></iframe>
+    <canvas id="myChart" width="1200" height="300" style="display: block"></canvas>
+
+      {{data|json_script:"data"}}
+      {{label|json_script:"label"}}
+    	<script>
+      var datalist = [];
+      var labellist = [];
+        datalist = document.getElementById('data').textContent
+        datalist = JSON.parse(datalist)
+        labellist = document.getElementById('label').textContent
+        labellist = JSON.parse(labellist)
+
+    	var ctx = document.getElementById('myChart');
+    	var myChart = new Chart(ctx, {
+    	    type: 'bar',
+    	    data: {
+          labels : labellist,
+    			datasets: [{
+    				label: 'GL',
+            data : datalist,
+            backgroundColor: [
+    						'rgba(0, 0, 0, 0)'
+    				],
+    				// borderColor: [
+            backgroundColor:[
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+    				],
+    				// borderWidth: 3
+            borderWidth:2,
+            borderColor:'#777',
+            hoverBorderWidth:3,
+            hoverBorderColor:'#000'
+    			}]
+    		},
+        options: {
+          legend: {
+            display: false
+          },
+    			scales: {
+    				yAxes: [{
+    					ticks: {
+    						min: 120,
+    						stepSize : 1,
+    						fontSize : 10,
+    					}
+    				}]
+    			}
+    		}
+    	});
+    	</script>
+      <script>
+       var value = "{{EQ_Version}}";
+       if(value!="")
+       {
+       var select = document.getElementById('EQ_Version'); //ID로 태그를 찾는 메소드
+       for(var i=0; i<select.options.length; i++){
+       if(select.options[i].value == value){
+           select.options[i].selected = true;
+           break;
+         }
+        }
+      }
+      </script>
+    </body>
+
+</html>

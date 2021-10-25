@@ -1,0 +1,33 @@
+<br></br><br></br><br></br><br></br><br></br>
+<div style = "text-align: center;">
+<a href= "http://127.0.0.1:8000/">
+  {% load static %}
+  <img src = "{%  static '2.png'%}">
+</a>
+</div>
+<br></br>
+<form action = "{%url 'login' %}" method="POST">
+  <div style = "text-align: center;">
+  {% csrf_token %}
+    <div style="text-align: center; margin: 0 auto;">
+      username : <input type = 'text' name ='username'>
+      <br/>
+      password : <input type = 'password' name = 'password'
+      <br/>
+    </div>
+    <div style="text-align: center; margin: 0 auto; padding-top: 20px;">
+      <input type = "submit" style="width: 250px; height: 30px;" value="로그인"class="btn btn-info btn-lg">
+    </div>
+  </div>
+</form>
+
+
+
+<div style = "text-align: center">
+  <br/>
+<VAR>
+{% if message %}
+  {{message}}
+{% endif %}
+</VAR>
+</div>
